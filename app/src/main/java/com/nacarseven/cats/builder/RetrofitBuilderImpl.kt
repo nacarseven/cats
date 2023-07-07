@@ -11,7 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 
-private const val BASE_URL = "https://api.tvmaze.com/"
+private const val BASE_URL = "https://api.thecatapi.com/v1/"
 private const val CONTENT_TYPE = "application/json"
 
 @ExperimentalSerializationApi
