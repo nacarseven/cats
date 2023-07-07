@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface BreedRepository {
 
-    fun getSeriesDetail(): Flow<List<Breed>>
+    fun getBreedList(): Flow<List<Breed>>
 }

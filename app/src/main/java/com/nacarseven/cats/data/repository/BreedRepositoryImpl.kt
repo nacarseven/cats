@@ -14,7 +14,7 @@ class BreedRepositoryImpl(
     private val networkManager: NetworkManager
 ) : BreedRepository {
 
-    override fun getSeriesDetail(): Flow<List<Breed>> {
+    override fun getBreedList(): Flow<List<Breed>> {
         return flow {
             try {
                 if (networkManager.isConnected()) {
