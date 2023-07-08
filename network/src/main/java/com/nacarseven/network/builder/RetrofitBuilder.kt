@@ -1,4 +1,4 @@
-package com.nacarseven.cats.builder
+package com.example.network.builder
 
 import retrofit2.Retrofit
 
