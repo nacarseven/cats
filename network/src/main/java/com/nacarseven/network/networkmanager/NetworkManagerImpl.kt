@@ -1,4 +1,4 @@
-package com.example.network.networkmanager
+package com.nacarseven.network.networkmanager
 
 import android.content.Context
 import android.net.ConnectivityManager

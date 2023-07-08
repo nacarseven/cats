@@ -51,6 +51,9 @@ android {
 
 dependencies {
 
+    // Modules
+    implementation(project(versions.LibModules.network))
+
     implementation(CoreDependencies.coreKtx)
     implementation(UiDependencies.appcompat)
     implementation(UiDependencies.material)

@@ -1,4 +1,4 @@
-package com.example.network.builder
+package com.nacarseven.network.builder
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi

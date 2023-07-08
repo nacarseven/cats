@@ -1,5 +1,5 @@
 package versions
 
-object Modules {
+object LibModules {
     const val network = ":network"
 }

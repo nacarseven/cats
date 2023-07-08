@@ -2,6 +2,7 @@ package com.nacarseven.cats
 
 import android.app.Application
 import com.nacarseven.cats.di.dataModule
+import com.nacarseven.network.networkModule
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -16,7 +17,7 @@ class CatsApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@CatsApplication)
-            modules(dataModule)
+            modules(networkModule, dataModule)
         }
     }
 }

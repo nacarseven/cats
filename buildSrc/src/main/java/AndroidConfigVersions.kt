@@ -4,4 +4,5 @@ object AndroidConfigVersions {
     const val targetSdkVersion = 33
     const val defaultVersionCode = 1
     const val defaultVersionName = "1.0"
+    const val buildToolsVersion = "30.0.3"
 }
