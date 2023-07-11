@@ -8,12 +8,14 @@ import com.nacarseven.cats.data.remote.datasource.BreedRemoteDataSourceImpl
 import com.nacarseven.cats.data.repository.BreedRepositoryImpl
 import com.nacarseven.cats.domain.repository.BreedRepository
 import com.nacarseven.cats.domain.usecase.GetBreedListUseCase
+import com.nacarseven.cats.presentation.MainViewModel
 import kotlinx.serialization.ExperimentalSerializationApi
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
-val dataModule = module {
+val appModule = module {
     data()
     domain()
     presentation()
@@ -37,6 +39,6 @@ private fun Module.domain() {
 }
 
 private fun Module.presentation() {
-
+    viewModel { MainViewModel() }
 }
 
