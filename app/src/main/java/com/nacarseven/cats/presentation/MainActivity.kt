@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import com.nacarseven.cats.R
+import com.nacarseven.cats.presentation.breedlist.BreedListFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         viewModel.mainAction.observe(this@MainActivity, Observer {
             when (it) {
                 MainAction.GoToBreedDetail -> TODO()
-                MainAction.GoToBreedListScreen -> TODO()
+                MainAction.GoToBreedListScreen -> showFragment(BreedListFragment())
             }
         })
     }

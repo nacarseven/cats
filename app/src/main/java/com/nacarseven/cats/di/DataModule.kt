@@ -9,6 +9,7 @@ import com.nacarseven.cats.data.repository.BreedRepositoryImpl
 import com.nacarseven.cats.domain.repository.BreedRepository
 import com.nacarseven.cats.domain.usecase.GetBreedListUseCase
 import com.nacarseven.cats.presentation.MainViewModel
+import com.nacarseven.cats.presentation.breedlist.BreedListViewModel
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
@@ -28,7 +29,6 @@ private fun Module.data() {
     }
     factory<BreedRepository> {
         BreedRepositoryImpl(
-            networkManager = get(),
             breedDataSource = get()
         )
     }
@@ -40,5 +40,6 @@ private fun Module.domain() {
 
 private fun Module.presentation() {
     viewModel { MainViewModel() }
+    viewModel { BreedListViewModel(getBreedListUseCase = get())}
 }
 

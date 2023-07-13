@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import java.lang.reflect.Method
 import kotlin.properties.ReadOnlyProperty
@@ -93,3 +94,20 @@ fun <T : ViewBinding> View.bind(viewBindingClass: Class<T>): T {
 }
 
 inline fun <reified T : ViewBinding> View.bind(): T = bind(T::class.java)
+
+inline fun <reified T : ViewBinding> RecyclerView.ViewHolder.viewBinding(): ReadOnlyProperty<RecyclerView.ViewHolder, T> =
+    ViewHolderBindingProperty { viewHolder -> viewHolder.itemView.bind(T::class.java) }
+
+class ViewHolderBindingProperty<T : ViewBinding>(
+    private val viewBindingCreator: (RecyclerView.ViewHolder) -> T,
+) : ReadOnlyProperty<RecyclerView.ViewHolder, T> {
+
+    private var viewBinding: T? = null
+
+    @MainThread
+    override fun getValue(thisRef: RecyclerView.ViewHolder, property: KProperty<*>): T {
+        checkMainThread { "The viewBinding property must be used on main thread." }
+        return viewBinding ?: viewBindingCreator(thisRef)
+            .also { viewBinding = it }
+    }
+}
