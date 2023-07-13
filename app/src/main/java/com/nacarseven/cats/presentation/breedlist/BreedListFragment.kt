@@ -27,20 +27,35 @@ class BreedListFragment : Fragment(R.layout.fragment_breed_list) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         handleState()
+        handleAction()
+    }
 
+    private fun handleAction() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.breedListAction.collect {
+                if (it is BreedListAction.GoToBreedDetail) {
+                    sharedViewModel.clickOnBreedItem(it.breedItem)
+                }
+            }
+        }
     }
 
     private fun handleState() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.breedListViewState.collect {
-                seriesListAdapter.submitList(it.breedList)
-                setLoading(it.isLoading)
+            viewModel.breedListViewState.collect { state ->
+                seriesListAdapter.submitList(state.breedList)
+                setLoading(state.isLoading)
+                setErrorMessage(state.isErrorState)
             }
         }
     }
 
     private fun setLoading(isLoading: Boolean) {
         binding.progressBar.isVisible = isLoading
+    }
+
+    private fun setErrorMessage(isErrorState: Boolean){
+        binding.tvErrorMessage.isVisible = isErrorState
     }
 
     private fun setupRecyclerView() {
@@ -52,10 +67,9 @@ class BreedListFragment : Fragment(R.layout.fragment_breed_list) {
             )
             adapter = seriesListAdapter
         }
-
     }
 
     private fun onItemClick(breed: Breed) {
-        sharedViewModel.clickOnBreedItem(breed)
+        viewModel.clickOnBreedItem(breed)
     }
 }

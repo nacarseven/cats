@@ -4,5 +4,6 @@ import com.nacarseven.cats.domain.entities.Breed
 
 data class BreedListViewState(
     val isLoading: Boolean = false,
+    val isErrorState: Boolean = false,
     val breedList: List<Breed>? = null
 )
