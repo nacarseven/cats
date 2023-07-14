@@ -24,15 +24,11 @@ class BreedListViewModel(
     private val _breedListViewState = MutableStateFlow(BreedListViewState())
     val breedListViewState: StateFlow<BreedListViewState> = _breedListViewState
 
-    init {
-        getBreedList()
-    }
-
     fun clickOnBreedItem(breed: Breed) {
         _breedListAction.value = BreedListAction.GoToBreedDetail(breed)
     }
 
-    private fun getBreedList() {
+    fun getBreedList() {
         viewModelScope.launch {
             getBreedListUseCase()
                 .flowOn(dispatcher)
@@ -46,8 +42,8 @@ class BreedListViewModel(
     }
 
     private fun setErrorState() {
-        setLoading(false)
         _breedListViewState.value = _breedListViewState.value.copy(isErrorState = true)
+        setLoading(false)
     }
 
     private fun setLoading(isLoading: Boolean) {

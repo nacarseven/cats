@@ -28,6 +28,7 @@ class BreedListFragment : Fragment(R.layout.fragment_breed_list) {
         setupRecyclerView()
         handleState()
         handleAction()
+        viewModel.getBreedList()
     }
 
     private fun handleAction() {

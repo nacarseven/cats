@@ -72,7 +72,15 @@ dependencies {
     // Koin
     implementation(CoreDependencies.koin)
 
+    // Test
+    implementation(TestDependencies.lifecycleViewModel)
+    implementation(TestDependencies.lifecycleRuntime)
     testImplementation(TestDependencies.junit)
+    testImplementation(TestDependencies.mockk)
+    testImplementation(TestDependencies.coroutinesTest)
+    testImplementation(TestDependencies.archCoreTesting)
+    testImplementation(TestDependencies.turbine)
     androidTestImplementation(TestDependencies.androidxJunit)
     androidTestImplementation(TestDependencies.espressoCore)
+
 }

@@ -23,7 +23,6 @@ class BreedRepositoryImpl(
                 }
             } catch (e: Exception) {
                 throw e
-
             }
         }
     }
