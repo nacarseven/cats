@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "cats"
-include(":app", ":network", ":common")
+include(":app", ":network")

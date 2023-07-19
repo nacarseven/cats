@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalSerializationApi::class)
-
 package com.nacarseven.cats.di
 
 import com.nacarseven.cats.data.api.CatsApi
@@ -10,7 +8,6 @@ import com.nacarseven.cats.domain.repository.BreedRepository
 import com.nacarseven.cats.domain.usecase.GetBreedListUseCase
 import com.nacarseven.cats.presentation.MainViewModel
 import com.nacarseven.cats.presentation.breedlist.BreedListViewModel
-import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -21,7 +18,6 @@ val appModule = module {
     domain()
     presentation()
 }
-
 private fun Module.data() {
     factory<CatsApi> { get<Retrofit>().create(CatsApi::class.java) }
     factory<BreedRemoteDataSource> {
