@@ -55,6 +55,7 @@ dependencies {
 
     // Modules
     implementation(project(versions.LibModules.network))
+    implementation(project(versions.LibModules.common))
     implementation(CoreDependencies.coreKtx)
     implementation(UiDependencies.appcompat)
     implementation(UiDependencies.material)

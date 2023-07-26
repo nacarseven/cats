@@ -29,7 +29,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    namespace = "com.nacarseven.common"
+    namespace = "com.nacarseven.cats"
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions {
             jvmTarget = "1.8"
@@ -40,13 +40,7 @@ android {
 dependencies {
 
     // Test
-    implementation(TestDependencies.lifecycleViewModel)
-    implementation(TestDependencies.lifecycleRuntime)
-    testImplementation(TestDependencies.junit)
-    testImplementation(TestDependencies.mockk)
-    testImplementation(TestDependencies.coroutinesTest)
-    testImplementation(TestDependencies.archCoreTesting)
-    testImplementation(TestDependencies.turbine)
-    androidTestImplementation(TestDependencies.androidxJunit)
-    androidTestImplementation(TestDependencies.espressoCore)
+    implementation(TestDependencies.junit)
+    implementation(TestDependencies.coroutinesTest)
+
 }
