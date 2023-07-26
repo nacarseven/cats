@@ -6,8 +6,10 @@ import com.nacarseven.cats.domain.entities.Breed
 import com.nacarseven.cats.domain.usecase.GetBreedListUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onStart
@@ -18,14 +20,17 @@ class BreedListViewModel(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
-    private val _breedListAction = MutableStateFlow<BreedListAction?>(null)
-    val breedListAction: StateFlow<BreedListAction?> = _breedListAction
+    private val _breedListAction = MutableSharedFlow<BreedListAction>()
+    val breedListAction = _breedListAction.asSharedFlow()
 
     private val _breedListViewState = MutableStateFlow(BreedListViewState())
-    val breedListViewState: StateFlow<BreedListViewState> = _breedListViewState
+    val breedListViewState = _breedListViewState.asStateFlow()
+
 
     fun clickOnBreedItem(breed: Breed) {
-        _breedListAction.value = BreedListAction.GoToBreedDetail(breed)
+        viewModelScope.launch {
+            _breedListAction.emit(BreedListAction.GoToBreedDetail(breed))
+        }
     }
 
     fun getBreedList() {

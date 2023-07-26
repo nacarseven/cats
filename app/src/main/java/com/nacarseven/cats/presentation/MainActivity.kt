@@ -1,13 +1,14 @@
 package com.nacarseven.cats.presentation
 
 import android.os.Bundle
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.nacarseven.cats.R
+import com.nacarseven.cats.domain.entities.Breed
 import com.nacarseven.cats.presentation.breedlist.BreedListFragment
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -20,12 +21,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun handleAction() {
-        viewModel.mainAction.observe(this@MainActivity, Observer {
-            when (it) {
-                MainAction.GoToBreedDetail -> TODO()
-                MainAction.GoToBreedListScreen -> showFragment(BreedListFragment())
+        lifecycleScope.launch {
+            viewModel.mainAction.collect { action ->
+                when (action) {
+                    is MainAction.GoToBreedDetail -> replaceBreedDetail(action.breed)
+                    is MainAction.GoToBreedListScreen -> showFragment(BreedListFragment())
+                }
             }
-        })
+        }
     }
 
     private fun showFragment(fragment: Fragment, isReplace: Boolean = false) {
@@ -40,6 +43,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         fragmentTransaction.commitAllowingStateLoss()
     }
 
+    private fun replaceBreedDetail(breed: Breed) {
+
+    }
 }
 
 

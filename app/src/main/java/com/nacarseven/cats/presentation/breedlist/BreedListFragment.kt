@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nacarseven.cats.R
@@ -43,10 +45,12 @@ class BreedListFragment : Fragment(R.layout.fragment_breed_list) {
 
     private fun handleState() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.breedListViewState.collect { state ->
-                seriesListAdapter.submitList(state.breedList)
-                setLoading(state.isLoading)
-                setErrorMessage(state.isErrorState)
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.breedListViewState.collect { state ->
+                    seriesListAdapter.submitList(state.breedList)
+                    setLoading(state.isLoading)
+                    setErrorMessage(state.isErrorState)
+                }
             }
         }
     }
