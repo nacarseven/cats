@@ -2,11 +2,13 @@ package com.nacarseven.cats.presentation
 
 import com.nacarseven.cats.domain.entities.Breed
 import com.nacarseven.cats.domain.usecase.GetBreedListUseCase
+import com.nacarseven.cats.presentation.breedlist.BreedListAction
 import com.nacarseven.cats.presentation.breedlist.BreedListViewModel
 import com.nacarseven.cats.presentation.breedlist.BreedListViewState
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
@@ -87,4 +89,29 @@ class BreedListViewModelTest {
         assertEquals(listOf(initialState, loadingState, errorState), testResults)
         job.cancel()
     }
+
+    @Test
+    fun `clickOnBreedItem should navigate to DetailScreen`() = runTest {
+        // Given
+        val breedFirstPosition =
+            Breed("1", "Abyssinian", "England", "Description", "Temperament", "10 years", "3 -5")
+        val breedSecondPosition =
+            Breed("2", "Aegean", "Canada", "Description", "Temperament", "10 years", "4-7")
+
+        val breedList = listOf(breedFirstPosition, breedSecondPosition)
+
+        val testResults = arrayListOf<BreedListAction>()
+        val job = launch(dispatcher) { viewModel.breedListAction.toList(destination = testResults) }
+
+        coEvery { useCase() } returns flow { emit(breedList) }
+
+        // When
+        viewModel.clickOnBreedItem(breedFirstPosition)
+
+        // Then
+        assertTrue(testResults[0] is BreedListAction.GoToBreedDetail)
+        job.cancel()
+
+    }
+
 }
